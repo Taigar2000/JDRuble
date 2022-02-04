@@ -7,8 +7,7 @@ pragma solidity >=0.7.0 <0.9.0;
 contract JDR {
     address public owner;
     JDruble jdruble;
-    BlockedUser[] blockedUsers;
-    BlockReason[] blockReasons;
+    BlockReason[] public blockReasons;
 
 
     struct JDruble {
@@ -17,7 +16,6 @@ contract JDR {
     }
 
     struct BlockedUser {
-        address blocked;
         uint256 reasonCode;
         bool isTotalBlocked;
         uint256 blockLimit;
@@ -27,6 +25,10 @@ contract JDR {
         uint256 reasonCode;
         string reason;
     }
+
+    mapping (address => uint256) public balances;
+
+    mapping (address => BlockedUser) public blockedUsers;
 
 
     function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
@@ -65,15 +67,13 @@ contract JDR {
         return bstr;
     }
 
-    function getReasons(uint256 rid) internal view returns (string memory _reason) {
+    function getReason(uint256 rid) internal view returns (string memory _reason) {
         uint256 i = 0;
         for(i = 0; i < blockReasons.length; ++i)
             if (blockReasons[i].reasonCode == rid)
                 return blockReasons[i].reason;
         return "";
     }
-
-    mapping (address => uint256) public balances;
 
     modifier isOwner() {
         require(msg.sender == owner, "Caller is not owner");
@@ -98,9 +98,26 @@ contract JDR {
         owner = msg.sender;
         emit OwnerChanged(msg.sender, receiver);
     }
+
+    function blockUserSomeSum(address user, uint256 reasonId, uint256 blockedLimit) public isOwner {
+        blockedUsers[user] = BlockedUser(reasonId, false, blockedLimit);
+    }
+
+    function blockUserTotally(address user, uint256 reasonId) public isOwner {
+        blockedUsers[user] = BlockedUser(reasonId, true, 0);
+    }
+
+    function unblockUser(address user) public isOwner {
+        blockedUsers[user] = BlockedUser(0, false, 0);
+    }
+
+    function addBlockReason(uint256 reasonId, string reason) public isOwner {
+        
+    }
     
     function transfer(address receiver, uint256 amount) public {
         require(amount>0, "Amount of JDRubles must be greater than 0");
+        require(!blockedUsers[msg.sender].isTotalBlocked, "Your account was totally blocked");
         // require(balances[msg.sender] >= amount, "You can't send more than you have JDRubles (");
         require(balances[msg.sender] >= amount, 
             string(concateBytesArrs(
