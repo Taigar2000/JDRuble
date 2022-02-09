@@ -162,7 +162,7 @@ contract JDR {
                         bytes(uint2str(blockedUsers[msg.sender].blockLimit))
                     ),
                     concateBytesArrs(
-                        bytes("blocked JDRubles by reason:\n\t"),
+                        bytes(" blocked JDRubles by reason:\n\t"),
                         bytes(getReason(blockedUsers[msg.sender].reasonCode))
                     )
                 )
