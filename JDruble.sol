@@ -67,12 +67,32 @@ contract JDR {
         return bstr;
     }
 
-    function getReason(uint256 rid) internal view returns (string memory _reason) {
+    function getReason(uint256 rid) public view returns (string memory _reason) {
         uint256 i = 0;
         for(i = 0; i < blockReasons.length; ++i)
             if (blockReasons[i].reasonCode == rid)
                 return blockReasons[i].reason;
         return "";
+    }
+
+    function getAllReasons() public view returns (string memory _reasons) {
+        uint256 i = 0;
+        bytes memory _res = bytes("");
+        for(i = 0; i < blockReasons.length; ++i)
+            _res = concateBytesArrs(
+                    _res,
+                    concateBytesArrs(
+                        concateBytesArrs(
+                            bytes(uint2str(blockReasons[i].reasonCode)),
+                            bytes(":\t")
+                        ),
+                        concateBytesArrs(
+                            bytes(blockReasons[i].reason),
+                            bytes("\n")
+                        )
+                    )
+            );
+        return string(_res);
     }
 
     modifier isOwner() {
