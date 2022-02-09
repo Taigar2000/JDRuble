@@ -86,6 +86,7 @@ contract JDR {
 
     constructor() {
         owner = msg.sender;
+        addBlockReason(0,"Not blocked");
     }
     
     function mint(uint256 amount) public isOwner {
@@ -111,14 +112,42 @@ contract JDR {
         blockedUsers[user] = BlockedUser(0, false, 0);
     }
 
-    function addBlockReason(uint256 reasonId, string reason) public isOwner {
-        
+    function addBlockReason(uint256 reasonId, string memory reason) public isOwner {
+        blockReasons.push(BlockReason(reasonId, reason));
     }
     
     function transfer(address receiver, uint256 amount) public {
         require(amount>0, "Amount of JDRubles must be greater than 0");
-        require(!blockedUsers[msg.sender].isTotalBlocked, "Your account was totally blocked");
+        require(!blockedUsers[msg.sender].isTotalBlocked, 
+            string(
+                concateBytesArrs(
+                    bytes("Your account was totally blocked by reason:\n\t"),
+                    bytes(getReason(blockedUsers[msg.sender].reasonCode))
+                )
+            )
+        );
         // require(balances[msg.sender] >= amount, "You can't send more than you have JDRubles (");
+        require(balances[msg.sender] - blockedUsers[msg.sender].blockLimit >= amount, 
+            string(concateBytesArrs(
+                concateBytesArrs(
+                    concateBytesArrs(
+                        bytes("You can't send more than you have unblocked JDRubles ("),
+                        bytes(uint2str(balances[msg.sender] - blockedUsers[msg.sender].blockLimit))
+                    ),
+                    bytes(")\n")
+                ),
+                concateBytesArrs(
+                    concateBytesArrs(
+                        bytes("You have "),
+                        bytes(uint2str(blockedUsers[msg.sender].blockLimit))
+                    ),
+                    concateBytesArrs(
+                        bytes("blocked JDRubles by reason:\n\t"),
+                        bytes(getReason(blockedUsers[msg.sender].reasonCode))
+                    )
+                )
+            ))
+        );
         require(balances[msg.sender] >= amount, 
             string(concateBytesArrs(
                 concateBytesArrs(
