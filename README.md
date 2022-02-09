@@ -1,1 +1,3 @@
-# JDRuble SC system on solidity studying project
+# JDRuble 
+
+SC system on solidity studying project
