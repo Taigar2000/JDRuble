@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 // import "github.com/Arachnid/solidity-stringutils/strings.sol";
+// import "github.com/rob-Hitchens/OrderStatisticsTree/";
 
 pragma solidity >=0.7.0 <0.9.0;
 // pragma strings;
@@ -29,6 +30,8 @@ contract JDR {
     mapping (address => uint256) public balances;
 
     mapping (address => BlockedUser) public blockedUsers;
+
+    mapping (uint256 => uint256) public blockReasonsMap;
 
 
     function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
@@ -68,11 +71,12 @@ contract JDR {
     }
 
     function getReason(uint256 rid) public view returns (string memory _reason) {
-        uint256 i = 0;
-        for(i = 0; i < blockReasons.length; ++i)
-            if (blockReasons[i].reasonCode == rid)
-                return blockReasons[i].reason;
-        return "";
+        return blockReasons[blockReasonsMap[rid]].reason;
+        // uint256 i = 0;
+        // for(i = 0; i < blockReasons.length; ++i)
+        //     if (blockReasons[i].reasonCode == rid)
+        //         return blockReasons[i].reason;
+        // return "";
     }
 
     function getAllReasons() public view returns (string memory _reasons) {
@@ -133,7 +137,9 @@ contract JDR {
     }
 
     function addBlockReason(uint256 reasonId, string memory reason) public isOwner {
+        blockReasonsMap[reasonId] = blockReasons.length;
         blockReasons.push(BlockReason(reasonId, reason));
+        
     }
     
     function transfer(address receiver, uint256 amount) public {

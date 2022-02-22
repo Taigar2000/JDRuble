@@ -1,0 +1,96 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "beforeAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "checkGetAllReasons",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "checkWinninProposalWithReturnValue",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "checkWinningProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/JDR_test.sol": "JDRTest"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/JDruble.sol": {
+			"keccak256": "0x9942d643b2283978c036908a275186d2425d8ae04d800658ba1401122ff7ac5a",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://5ff35bc4f4eac0adce00fc1440ad127fc54d2e88e395e257820183ae4dae3387",
+				"dweb:/ipfs/QmVE8iM2t5fdRTrNNAfkXokf5n5C2hA38GrVcuk6jzGuqa"
+			]
+		},
+		"remix_tests.sol": {
+			"keccak256": "0xe2783cdc204cba8c72494119339f1d90f9022b15d6c718c668b7f097d8e29787",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://bb6a22e64c7f16bcaab63b1c1a1b269d5be8a6d37bdd9dec1718477ab916b18e",
+				"dweb:/ipfs/QmdkW1tT5iadBvaHMCoskhDGZKnfdg8o1D9CcoQYtdJet7"
+			]
+		},
+		"tests/JDR_test.sol": {
+			"keccak256": "0x3a459e57036ad1dc2a5634a6643368336009d9ca2d7db690d3dcf866b81734f9",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://61ce8b593ddfd7fee3c68761cf522f27251d545c084a74e9148763f867083984",
+				"dweb:/ipfs/QmQ4vLhP1JBuFZTT9EC7fDEryYcWdNMpm1GhCYWk5AArZW"
+			]
+		}
+	},
+	"version": 1
+}
