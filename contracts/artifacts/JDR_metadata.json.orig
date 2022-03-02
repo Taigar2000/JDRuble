@@ -354,11 +354,19 @@
 	},
 	"sources": {
 		"contracts/JDruble.sol": {
+<<<<<<< HEAD
 			"keccak256": "0x32ecff52ca7ce0a1541ed32c25d43b1e0ef3141d5b2fadd1e7daa5737ee1431a",
 			"license": "GPL-3.0",
 			"urls": [
 				"bzz-raw://4c14c005311968dbfbe82145b7c133486b7cc580a70a778eec3006d93f3dc6e4",
 				"dweb:/ipfs/QmeXJbvsLnMtrJLcGwpKEaG7UGnrAJcS2oXU1dK3ZSTa54"
+=======
+			"keccak256": "0x9942d643b2283978c036908a275186d2425d8ae04d800658ba1401122ff7ac5a",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://5ff35bc4f4eac0adce00fc1440ad127fc54d2e88e395e257820183ae4dae3387",
+				"dweb:/ipfs/QmVE8iM2t5fdRTrNNAfkXokf5n5C2hA38GrVcuk6jzGuqa"
+>>>>>>> 727a6c3ed9201473518641637bffa62a5d4a19ec
 			]
 		}
 	},
